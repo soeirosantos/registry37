@@ -1,0 +1,12 @@
+#TODO List
+
+0 - Setup, runtime and QA dependencies
+1 - Express config
+2 - Database config
+3 - API skeleton
+4 - API specification
+5 - Domain model
+6 - API implementation
+7 - Redis setup and basic access infra
+8 - Metadata Publisher specification
+9 - Metadata Publisher implementation

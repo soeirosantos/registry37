@@ -18,11 +18,13 @@ Endpoints
 
 GET  /apps                                               - get all apps
 GET  /apps/appName                                       - get all instances of this app
-GET  /apps/appName/instances/instanceId                  - get all metadata for this specific instance ipAddress
-GET  /apps/appName/instances/instanceId/metadata/keyName - return the configuration required
 POST /apps/appName                                       - register a new Application
+
+GET  /apps/appName/instances/instanceId                  - get all metadata for this specific instance ipAddress
 POST /apps/appName/instanceId                            - register a new instanceId
-PUT  /apps/appName/instances/instanceId/metadata
+
+GET  /apps/appName/instances/instanceId/metadata/keyName - return the configuration required
+PUT  /apps/appName/instances/instanceId/metadata - create or update a metadata entry
 
 Possible metadata
 
