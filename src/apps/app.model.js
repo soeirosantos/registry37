@@ -1,7 +1,7 @@
 'use strict'
 
 const Sequelize = require('sequelize')
-const sequelize = require('./db')
+const sequelize = require('./infra/db')
 
 const App = sequelize.define('app', {
   name: {
