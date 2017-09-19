@@ -8,7 +8,7 @@ router.get('/:instanceId', (req, res, next) => {
   res.status(200).json({instanceId: 'theInstanceId', metadata: [{healthCheckUrl: 'http://the-url'}]})
 })
 
-router.post('/', (req, res, next) => {
+router.post('/:instanceId', (req, res, next) => {
   res.status(201).json({instanceId: 'theInstanceId'})
 })
 

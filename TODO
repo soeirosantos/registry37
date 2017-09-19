@@ -1,12 +1,15 @@
 #TODO List
 
-0 - Setup, runtime and QA dependencies
-1 - Express config
-2 - Database config
-3 - API skeleton
+0 - Setup, runtime and QA dependencies - OK
+1 - Express config - OK
+2 - Database config - OK
+3 - API skeleton - OK
 4 - API specification
-5 - Domain model
+5 - Domain model implementation
 6 - API implementation
+  6.1 - Standard error response
+  6.2 - Business rules
+  6.3 - Paginate results
 7 - Redis setup and basic access infra
 8 - Metadata Publisher specification
 9 - Metadata Publisher implementation

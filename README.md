@@ -25,7 +25,7 @@ For this version, the following operations can be used to manage metadata:
 | `GET  /apps` | get all apps |
 | `GET  /apps/:appName` | get all instances of this app |
 | `POST /apps/:appName` | register a new Application |
-| `GET  /apps/:appName/instances/:instanceId` | get all metadata for this specific instance ipAddress |
+| `GET  /apps/:appName/instances/:instanceId` | get all metadata for this specific instance |
 | `POST /apps/:appName/instances/:instanceId` | register a new instanceId |
 | `GET  /apps/:appName/instances/:instanceId/metadata/:keyName`|return the configuration required |
 | `PUT  /apps/:appName/instances/:instanceId/metadata` | create or update a metadata entry |
