@@ -10,3 +10,4 @@
 7 - Redis setup and basic access infra
 8 - Metadata Publisher specification
 9 - Metadata Publisher implementation
+10 - Dockerize
