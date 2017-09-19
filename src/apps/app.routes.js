@@ -12,7 +12,7 @@ router.get('/:name', (req, res, next) => {
   res.status(200).json({name: 'foo', instances: [{instanceId: 'someInstance'}]})
 })
 
-router.post('/', (req, res, next) => {
+router.post('/:name', (req, res, next) => {
   res.status(201).json({name: 'foo'})
 })
 
