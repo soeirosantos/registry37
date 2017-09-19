@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/soeirosantos/registry37.svg?branch=master)](https://travis-ci.org/soeirosantos/registry37)
+
 # Registry37 - A Simple Metadata Registry application
 
 The Registry37 is a *lightweight* application for storing and managing application service metadata. 
