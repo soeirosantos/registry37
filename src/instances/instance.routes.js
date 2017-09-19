@@ -5,10 +5,12 @@ const router = express.Router()
 
 router.get('/apps/:name/instances/:instanceId', (req, res, next) => {
   console.log(`instanceId: ${req.params.instanceId}`)
+  // TODO:
   res.status(200).json({instanceId: 'theInstanceId', metadata: [{healthCheckUrl: 'http://the-url'}]})
 })
 
 router.post('/apps/:name/instances/:instanceId', (req, res, next) => {
+  // TODO:
   res.status(201).json({instanceId: 'theInstanceId'})
 })
 

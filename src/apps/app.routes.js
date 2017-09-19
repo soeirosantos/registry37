@@ -4,15 +4,18 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/apps', (req, res, next) => {
+  // TODO:
   res.status(200).json([{name: 'foo'}, {name: 'bar'}, {name: 'baz'}])
 })
 
 router.get('/apps/:name', (req, res, next) => {
   console.log(`app name: ${req.params.name}`)
+  // TODO:
   res.status(200).json({name: 'foo', instances: [{instanceId: 'someInstance'}]})
 })
 
 router.post('/apps/:name', (req, res, next) => {
+  // TODO:
   res.status(201).json({name: 'foo'})
 })
 
