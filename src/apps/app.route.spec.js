@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars,handle-callback-err */
 
 'use strict'
 
@@ -15,7 +15,6 @@ describe('Apps API', () => {
       chai.request(server)
         .get('/api/v1/apps')
         .end((err, res) => {
-          if (err) throw err
           res.should.have.status(200)
           res.body.should.be.a('array')
           done()
@@ -28,7 +27,6 @@ describe('Apps API', () => {
       chai.request(server)
         .get('/api/v1/apps/foo')
         .end((err, res) => {
-          if (err) throw err
           res.should.have.status(200)
           res.body.should.be.a('object')
           done()
@@ -41,7 +39,6 @@ describe('Apps API', () => {
       chai.request(server)
         .post('/api/v1/apps/foo')
         .end((err, res) => {
-          if (err) throw err
           res.should.have.status(201)
           res.body.should.be.a('object')
           res.body.name.should.equal('foo')

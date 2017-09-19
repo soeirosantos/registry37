@@ -9,9 +9,9 @@ app.use(bodyParser.json())
 const API_ROOT = '/api/v1'
 
 app.use(`${API_ROOT}/health`, require('./infra/health'))
-app.use(`${API_ROOT}/apps`, require('./apps'))
-app.use(`${API_ROOT}/apps/:name/instances`, require('./instances'))
-app.use(`${API_ROOT}/apps/:name/instances/:instanceId/metadata`, require('./metadata'))
+app.use(API_ROOT, require('./apps'))
+app.use(API_ROOT, require('./instances'))
+app.use(API_ROOT, require('./metadata'))
 
 app.use((err, request, response, next) => {
   console.log(err)

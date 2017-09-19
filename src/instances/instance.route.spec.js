@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars,handle-callback-err */
 
 'use strict'
 
@@ -15,7 +15,6 @@ describe('Instances API', () => {
       chai.request(server)
         .get('/api/v1/apps/foo/instances/theInstanceId')
         .end((err, res) => {
-          if (err) throw err
           res.should.have.status(200)
           res.body.should.be.a('object')
           res.body.should.have.property('metadata')
@@ -30,7 +29,6 @@ describe('Instances API', () => {
       chai.request(server)
         .post('/api/v1/apps/foo/instances/theInstanceId')
         .end((err, res) => {
-          if (err) throw err
           res.should.have.status(201)
           res.body.should.be.a('object')
           res.body.instanceId.should.be.equal('theInstanceId')

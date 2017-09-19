@@ -27,8 +27,9 @@ For this version, the following operations can be used to manage metadata:
 | `POST /apps/:appName` | register a new Application |
 | `GET  /apps/:appName/instances/:instanceId` | get all metadata for this specific instance |
 | `POST /apps/:appName/instances/:instanceId` | register a new instanceId |
+| `GET  /apps/:appName/instances/:instanceId/metadata/keys`| return the keys for the metadata stored |
 | `GET  /apps/:appName/instances/:instanceId/metadata/:keyName`|return the configuration required |
-| `PUT  /apps/:appName/instances/:instanceId/metadata` | create or update a metadata entry |
+| `POST  /apps/:appName/instances/:instanceId/metadata` | create or update a metadata entry |
 
 ## Pub/Sub Messaging Channel
 
