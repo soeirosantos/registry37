@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = require('./app.routes')
+module.exports = {routes: require('./app.routes'), model: require('./app.model')}

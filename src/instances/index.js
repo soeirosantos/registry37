@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = require('./instance.routes')
+module.exports = {routes: require('./instance.routes'), model: require('./instance.model')}

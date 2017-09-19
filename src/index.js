@@ -11,9 +11,9 @@ app.use(cors())
 const API_ROOT = '/api/v1'
 
 app.use(`${API_ROOT}/health`, require('./infra/health'))
-app.use(API_ROOT, require('./apps'))
-app.use(API_ROOT, require('./instances'))
-app.use(API_ROOT, require('./metadata'))
+app.use(API_ROOT, require('./apps').routes)
+app.use(API_ROOT, require('./instances').routes)
+app.use(API_ROOT, require('./metadata').routes)
 
 app.use((err, request, response, next) => {
   console.log(err)
