@@ -1,0 +1,42 @@
+{
+  "name": "xregistry",
+  "version": "1.0.0",
+  "description": "A simple Metadata Registry application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "NODE_ENV=test mocha ./videos/**/*.spec.js",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soeirosantos/x-registry.git"
+  },
+  "author": "Romulo Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soeirosantos/x-registry/issues"
+  },
+  "homepage": "https://github.com/soeirosantos/x-registry#readme",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "mysql2": "^1.4.2",
+    "sequelize": "^4.8.4"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.7.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^3.5.3",
+    "nodemon": "^1.12.1",
+    "nyc": "^11.2.1",
+    "sinon": "^3.3.0",
+    "sqlite3": "^3.1.11"
+  }
+}

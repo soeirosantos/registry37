@@ -1,0 +1,39 @@
+Application Metadata Registry
+
+http://microservices.io/patterns/externalized-configuration.html
+https://github.com/cer/microservices-examples
+http://microservices.io/patterns/service-registry.html
+https://github.com/Netflix/eureka/wiki/Eureka-REST-operations
+
+App > Instance > Metadata
+
+Attrs
+
+instanceId
+appName
+key
+value
+
+Endpoints
+
+GET  /apps                                               - get all apps
+GET  /apps/appName                                       - get all instances of this app
+GET  /apps/appName/instances/instanceId                  - get all metadata for this specific instance ipAddress
+GET  /apps/appName/instances/instanceId/metadata/keyName - return the configuration required
+POST /apps/appName                                       - register a new Application
+POST /apps/appName/instanceId                            - register a new instanceId
+PUT  /apps/appName/instances/instanceId/metadata
+
+Possible metadata
+
+nonSecurePort
+securePort
+virtualHostname
+secureVirtualHostname
+hostName
+ipAddress
+statusPageUrlPath
+statusPageUrl
+homePageUrl
+healthCheckUrl
+secureHealthCheckUrl
