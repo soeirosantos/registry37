@@ -18,7 +18,7 @@ describe('Instances API', () => {
           res.should.have.status(200)
           res.body.should.be.a('object')
           res.body.should.have.property('metadata')
-          res.body.metadata.should.be.a('array')
+          res.body.metadata.should.be.a('object')
           done()
         })
     })

@@ -1,6 +1,5 @@
 'use strict'
 
-const _ = require('lodash')
 const express = require('express')
 const expressSanitized = require('express-sanitize-escape')
 const router = express.Router()
@@ -19,12 +18,12 @@ router.get('/apps/:name/instances/:instanceId', (req, res, next) => {
       }
       Metadata.findAll({ where: { instanceId: instance.instanceId, appName: instance.appName } })
         .then(metadata => {
-          instance = instance.toJSON()
-          instance.metadata = _.map(metadata, (m) => {
-            let keyValue = {}
-            keyValue[m.key] = m.value
-            return keyValue
+          instance = instance.get()
+          const metadataAsSingleObject = {}
+          metadata.forEach((m) => {
+            metadataAsSingleObject[m.key] = m.value
           })
+          instance.metadata = metadataAsSingleObject
           res.status(200).json(instance)
         })
         .catch(err => next(err))

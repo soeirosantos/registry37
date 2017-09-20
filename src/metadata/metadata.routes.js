@@ -31,6 +31,11 @@ router.get('/apps/:name/instances/:instanceId/metadata/:keyName', (req, res, nex
 })
 
 router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
+  if (_.size(req.body) !== 1) {
+    res.sendStatus(400)
+    return
+  }
+
   Instance.findOne({ where: { appName: req.params.name, instanceId: req.params.instanceId } })
     .then(instance => {
       if (!instance) {
