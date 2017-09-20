@@ -47,5 +47,14 @@ describe('Metadata API', () => {
           done()
         })
     })
+    it('should response HTTP status 400 storing a metadata with wrong content', (done) => {
+      chai.request(server)
+        .post('/api/v1/apps/foo/instances/theInstanceId/metadata')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400)
+          done()
+        })
+    })
   })
 })

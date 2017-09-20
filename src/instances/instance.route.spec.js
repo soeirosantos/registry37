@@ -35,5 +35,14 @@ describe('Instances API', () => {
           done()
         })
     })
+    it('should response HTTP status 400 creating an instance with existing instanceId', (done) => {
+      chai.request(server)
+        .post('/api/v1/apps/foo/instances/instance1')
+        .end((err, res) => {
+          res.should.have.status(400)
+          res.body.should.be.a('object')
+          done()
+        })
+    })
   })
 })

@@ -46,5 +46,14 @@ describe('Apps API', () => {
           done()
         })
     })
+    it('should response HTTP status 400 creating an app using an existing name', (done) => {
+      chai.request(server)
+        .post('/api/v1/apps/foo')
+        .end((err, res) => {
+          res.should.have.status(400)
+          res.body.should.be.a('object')
+          done()
+        })
+    })
   })
 })
