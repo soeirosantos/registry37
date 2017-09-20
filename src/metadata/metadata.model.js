@@ -29,7 +29,7 @@ const Metadata = sequelize.define('metadata', {
   }
 })
 
-if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0){
+if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0) {
   Metadata.sync({ force: true }).then(() => {
     return Metadata.bulkCreate([{
       key: 'someKey',

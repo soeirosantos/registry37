@@ -11,7 +11,7 @@ const App = sequelize.define('app', {
   }
 })
 
-if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0){
+if ([ 'dev', 'test' ].indexOf(process.env.NODE_ENV) >= 0) {
   App.sync({ force: true }).then(() => {
     return App.bulkCreate([{
       name: 'foo'

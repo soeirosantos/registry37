@@ -19,7 +19,7 @@ const Instance = sequelize.define('instance', {
   }
 })
 
-if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0){
+if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0) {
   Instance.sync({ force: true }).then(() => {
     return Instance.bulkCreate([{
       instanceId: 'instance1',

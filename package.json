@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=dev nodemon ./src/index.js",
     "start": "node ./src/index.js",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./src/**/*.spec.js",
-    "lint": "eslint ."
+    "lint": "eslint ./src/"
   },
   "repository": {
     "type": "git",
