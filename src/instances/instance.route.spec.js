@@ -13,7 +13,7 @@ describe('Instances API', () => {
   describe('GET /api/v1/apps/:name/intances/:instanceId', () => {
     it('should response HTTP status 200 retrieving metadata for an instance', (done) => {
       chai.request(server)
-        .get('/api/v1/apps/foo/instances/theInstanceId')
+        .get('/api/v1/apps/foo/instances/instance1')
         .end((err, res) => {
           res.should.have.status(200)
           res.body.should.be.a('object')

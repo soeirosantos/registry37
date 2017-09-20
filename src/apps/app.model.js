@@ -7,10 +7,18 @@ const App = sequelize.define('app', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {min: 3, max: 255, notEmpty: true}
+    validate: { min: 3, max: 255, notEmpty: true }
   }
 })
 
-App.sync({force: true})
+if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0){
+  App.sync({ force: true }).then(() => {
+    return App.bulkCreate([{
+      name: 'foo'
+    }, {
+      name: 'bar'
+    }])
+  })
+}
 
 module.exports = App

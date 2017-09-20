@@ -132,3 +132,6 @@ Temporary Items
 .Trash-*
 
 *.sqlite
+
+.nyc_output
+coverage

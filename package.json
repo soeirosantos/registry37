@@ -4,9 +4,9 @@
   "description": "A simple Metadata Registry application",
   "main": "./src/index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
+    "dev": "NODE_ENV=dev nodemon ./src/index.js",
     "start": "node ./src/index.js",
-    "test": "NODE_ENV=test mocha ./src/**/*.spec.js",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./src/**/*.spec.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -19,6 +19,7 @@
     "body-parser": "^1.18.1",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "lodash": "^4.17.4",
     "mysql2": "^1.4.2",
     "sequelize": "^4.8.4"
   },

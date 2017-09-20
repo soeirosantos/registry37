@@ -1,24 +1,58 @@
 'use strict'
 
+const _ = require('lodash')
 const express = require('express')
 const router = express.Router()
+const Metadata = require('./metadata.model')
+const Instance = require('../instances/instance.model')
 
 router.get('/apps/:name/instances/:instanceId/metadata/keys', (req, res, next) => {
-  console.log(`instanceId: ${req.params.instanceId}`)
-  console.log(`app name: ${req.params.name}`)
-  // TODO:
-  res.status(200).json(['healthCheckUrl', 'homePageUrl', 'hostName'])
+  Metadata.findAll({ where: { instanceId: req.params.instanceId, appName: req.params.name } })
+    .then(metadata => {
+      metadata = _.map(metadata, (m) => m.key)
+      res.status(200).json(metadata)
+    })
+    .catch(err => next(err))
 })
 
 router.get('/apps/:name/instances/:instanceId/metadata/:keyName', (req, res, next) => {
-  console.log(`key name: ${req.params.keyName}`)
-  // TODO:
-  res.status(200).json({healthCheckUrl: 'http://the-url'})
+  Metadata.findOne({
+    where: {
+      instanceId: req.params.instanceId,
+      appName: req.params.name,
+      key: req.params.keyName
+    }
+  })
+    .then(metadata => {
+      const keyValuePair = {}
+      keyValuePair[metadata.key] = metadata.value
+      res.status(200).json(keyValuePair)
+    })
+    .catch(err => next(err))
 })
 
 router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
-  // TODO:
-  res.status(201).json({healthCheckUrl: 'http://the-url'})
+  Instance.findOne({ where: { appName: req.params.name, instanceId: req.params.instanceId } })
+    .then(instance => {
+      if (!instance) {
+        res.sendStatus(404)
+        return
+      }
+      const newMetadata = {}
+      for (let property in req.body) { // TODO: validate the body structure
+        newMetadata['key'] = property
+        newMetadata['value'] = req.body[property]
+      }
+      newMetadata['appName'] = instance.appName
+      newMetadata['instanceId'] = instance.instanceId
+      Metadata.create(newMetadata) // FIXME: security flaw
+        .then(metadata => {
+          const keyValuePair = {}
+          keyValuePair[metadata.key] = metadata.value
+          res.status(201).json(keyValuePair)
+        })
+        .catch(err => next(err))
+    })
 })
 
 module.exports = router

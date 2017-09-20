@@ -5,11 +5,11 @@
 2 - Database config - OK
 3 - API skeleton - OK
 4 - API specification - OK
-5 - Domain model implementation
-6 - API implementation
-  6.1 - Standard error response
-  6.2 - Business rules
-  6.3 - Paginate results
+5 - Domain model implementation - OK
+6 - API implementation - OK
+6.1 - Standard error response
+6.2 - Business rules
+6.3 - Paginate results
 7 - Redis setup and basic access infra
 8 - Metadata Publisher specification
 9 - Metadata Publisher implementation

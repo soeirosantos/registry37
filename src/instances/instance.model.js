@@ -7,7 +7,7 @@ const Instance = sequelize.define('instance', {
   instanceId: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {min: 3, max: 255, notEmpty: true}
+    validate: { min: 3, max: 255, notEmpty: true }
   },
   // It's a decision to let the model
   // flat and don't rely on details
@@ -15,10 +15,23 @@ const Instance = sequelize.define('instance', {
   appName: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {min: 3, max: 255, notEmpty: true}
+    validate: { min: 3, max: 255, notEmpty: true }
   }
 })
 
-Instance.sync({force: true})
+if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0){
+  Instance.sync({ force: true }).then(() => {
+    return Instance.bulkCreate([{
+      instanceId: 'instance1',
+      appName: 'foo'
+    }, {
+      instanceId: 'instance2',
+      appName: 'foo'
+    }, {
+      instanceId: 'instance3',
+      appName: 'bar'
+    }])
+  })
+}
 
 module.exports = Instance
