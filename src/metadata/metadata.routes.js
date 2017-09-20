@@ -17,11 +17,7 @@ router.get('/apps/:name/instances/:instanceId/metadata/keys', (req, res, next) =
 
 router.get('/apps/:name/instances/:instanceId/metadata/:keyName', (req, res, next) => {
   Metadata.findOne({
-    where: {
-      instanceId: req.params.instanceId,
-      appName: req.params.name,
-      key: req.params.keyName
-    }
+    where: {instanceId: req.params.instanceId, appName: req.params.name, key: req.params.keyName}
   })
     .then(metadata => {
       const keyValuePair = {}
@@ -39,14 +35,19 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
         return
       }
       const newMetadata = {}
+      let value
       for (let property in req.body) { // TODO: validate the body structure
         newMetadata['key'] = property
-        newMetadata['value'] = req.body[property]
+        value = req.body[property]
       }
       newMetadata['appName'] = instance.appName
       newMetadata['instanceId'] = instance.instanceId
-      Metadata.create(newMetadata) // FIXME: security flaw
-        .then(metadata => {
+      Metadata.findOrCreate({where: newMetadata, defaults: {value: value}})
+        .spread((metadata, created) => {
+          if (!created) {
+            metadata.value = value
+            metadata.save()
+          }
           const keyValuePair = {}
           keyValuePair[metadata.key] = metadata.value
           res.status(201).json(keyValuePair)
