@@ -38,11 +38,11 @@ describe('Apps API', () => {
   describe('POST /api/v1/apps/:name', () => {
     it('should response HTTP status 201 creating an app', (done) => {
       chai.request(server)
-        .post('/api/v1/apps/foo')
+        .post('/api/v1/apps/baz')
         .end((err, res) => {
           res.should.have.status(201)
           res.body.should.be.a('object')
-          res.body.name.should.equal('foo')
+          res.body.name.should.equal('baz')
           done()
         })
     })

@@ -9,6 +9,13 @@ const App = sequelize.define('app', {
     allowNull: false,
     validate: { min: 3, max: 255, notEmpty: true }
   }
+},
+{
+  indexes: [
+    {
+      unique: true,
+      fields: ['name']
+    }]
 })
 
 if ([ 'dev', 'test' ].indexOf(process.env.NODE_ENV) >= 0) {

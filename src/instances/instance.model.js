@@ -17,6 +17,13 @@ const Instance = sequelize.define('instance', {
     allowNull: false,
     validate: { min: 3, max: 255, notEmpty: true }
   }
+},
+{
+  indexes: [
+    {
+      unique: true,
+      fields: ['appName', 'instanceId']
+    }]
 })
 
 if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0) {
