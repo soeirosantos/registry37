@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const expressSanitized = require('express-sanitize-escape')
-const error = require('./error/errorHandler')
+const error = require('./error')
 
 const app = express()
 app.use(helmet())

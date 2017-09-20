@@ -6,7 +6,7 @@ const expressSanitized = require('express-sanitize-escape')
 const router = express.Router()
 const Metadata = require('./metadata.model')
 const Instance = require('../instances/instance.model')
-const ApiError = require('../error/errorHandler').ApiError
+const ApiError = require('../error').ApiError
 
 expressSanitized.sanitizeParams(router, ['name', 'instanceId', 'keyName'])
 
@@ -59,7 +59,7 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
           }
           const keyValuePair = {}
           keyValuePair[metadata.key] = metadata.value
-          res.status(201).json(keyValuePair)
+          res.status(200).json(keyValuePair)
         })
         .catch(err => next(err))
     })

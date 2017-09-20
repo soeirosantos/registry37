@@ -6,7 +6,7 @@ const router = express.Router()
 const Instance = require('./instance.model')
 const Metadata = require('../metadata').model
 const App = require('../apps/app.model')
-const ApiError = require('../error/errorHandler').ApiError
+const ApiError = require('../error').ApiError
 
 expressSanitized.sanitizeParams(router, ['name', 'instanceId'])
 

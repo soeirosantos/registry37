@@ -8,11 +8,23 @@ const Instance = require('../instances').model
 
 expressSanitized.sanitizeParams(router, ['name'])
 
-const ApiError = require('../error/errorHandler').ApiError
+const ApiError = require('../error').ApiError
+
+const MAX_RESULTS_PER_PAGE = 100
+const DEFAULT_RESULTS_PER_PAGE = 10
+const FIRST_PAGE = 1
 
 router.get('/apps', (req, res, next) => {
-  App.findAll()
-    .then(apps => res.status(200).json(apps))
+  // TODO: this pagination logic could be extracted in case of reuse
+  const limit = Math.min(parseInt(req.query['limit'] || DEFAULT_RESULTS_PER_PAGE),
+    MAX_RESULTS_PER_PAGE)
+  const page = parseInt(req.query['page'] || FIRST_PAGE)
+  const offset = (page - 1) * limit
+  App.findAndCountAll({ offset: offset, limit: limit })
+    .then(apps => res.header('X-Total-Count', apps.count)
+      .header('X-Limit', limit)
+      .header('X-Page', page)
+      .status(200).json(apps.rows))
     .catch(err => next(err))
 })
 

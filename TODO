@@ -9,9 +9,9 @@
 6 - API implementation - OK
 6.1 - Standard error response - OK
 6.2 - Business rules - OK
-6.3 - Paginate results
+6.3 - Paginate results - OK
 6.4 - Secure the API - OK
-6.5 - Cover error flow
+6.5 - Cover error flow - OK
 7 - Redis setup and basic access infra
 8 - Metadata Publisher specification
 9 - Metadata Publisher implementation

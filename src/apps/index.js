@@ -1,3 +1,5 @@
 'use strict'
 
-module.exports = {routes: require('./app.routes'), model: require('./app.model')}
+const routes = require('./app.routes')
+const model = require('./app.model')
+module.exports = {routes: routes, model: model}

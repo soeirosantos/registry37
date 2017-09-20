@@ -41,7 +41,7 @@ describe('Metadata API', () => {
         .post('/api/v1/apps/foo/instances/theInstanceId/metadata')
         .send({healthCheckUrl: 'http://the-url'})
         .end((err, res) => {
-          res.should.have.status(201)
+          res.should.have.status(200)
           res.body.should.be.a('object')
           res.body.should.have.property('healthCheckUrl')
           done()
