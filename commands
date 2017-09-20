@@ -9,3 +9,4 @@ npm install chai-http --save-dev
 npm install cors
 npm install helmet
 npm install express-sanitize-escape
+npm install uuid

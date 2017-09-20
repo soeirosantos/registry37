@@ -6,6 +6,7 @@ const expressSanitized = require('express-sanitize-escape')
 const router = express.Router()
 const Metadata = require('./metadata.model')
 const Instance = require('../instances/instance.model')
+const ApiError = require('../error/errorHandler').ApiError
 
 expressSanitized.sanitizeParams(router, ['name', 'instanceId', 'keyName'])
 
@@ -32,14 +33,14 @@ router.get('/apps/:name/instances/:instanceId/metadata/:keyName', (req, res, nex
 
 router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
   if (_.size(req.body) !== 1) {
-    res.sendStatus(400)
+    next(new ApiError(400, 'Wrong format for the metadata. Please, use {"key":"value"}.'))
     return
   }
 
   Instance.findOne({ where: { appName: req.params.name, instanceId: req.params.instanceId } })
     .then(instance => {
       if (!instance) {
-        res.sendStatus(404)
+        next(new ApiError(404, 'Application Instance not found.'))
         return
       }
       const newMetadata = {}

@@ -8,6 +8,8 @@ const Instance = require('../instances').model
 
 expressSanitized.sanitizeParams(router, ['name'])
 
+const ApiError = require('../error/errorHandler').ApiError
+
 router.get('/apps', (req, res, next) => {
   App.findAll()
     .then(apps => res.status(200).json(apps))
@@ -18,7 +20,7 @@ router.get('/apps/:name', (req, res, next) => {
   App.findOne({ where: { name: req.params.name } })
     .then(app => {
       if (!app) {
-        res.sendStatus(404)
+        next(new ApiError(404, 'Application not found.'))
         return
       }
       Instance.findAll({ where: { appName: app.name } })

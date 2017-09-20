@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const expressSanitized = require('express-sanitize-escape')
+const error = require('./error/errorHandler')
 
 const app = express()
 app.use(helmet())
@@ -20,10 +21,7 @@ app.use(API_ROOT, require('./instances').routes)
 app.use(API_ROOT, require('./metadata').routes)
 app.disable('x-powered-by')
 
-app.use((err, request, response, next) => {
-  console.log(err)
-  response.status(500).send('Sorry, we are facing issues...')
-})
+app.use(error.handler)
 
 const sequelize = require('./infra/db')
 

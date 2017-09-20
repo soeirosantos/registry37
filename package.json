@@ -23,7 +23,8 @@
     "helmet": "^3.8.1",
     "lodash": "^4.17.4",
     "mysql2": "^1.4.2",
-    "sequelize": "^4.8.4"
+    "sequelize": "^4.8.4",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
