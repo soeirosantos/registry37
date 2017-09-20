@@ -2,9 +2,12 @@
 
 const _ = require('lodash')
 const express = require('express')
+const expressSanitized = require('express-sanitize-escape')
 const router = express.Router()
 const Metadata = require('./metadata.model')
 const Instance = require('../instances/instance.model')
+
+expressSanitized.sanitizeParams(router, ['name', 'instanceId', 'keyName'])
 
 router.get('/apps/:name/instances/:instanceId/metadata/keys', (req, res, next) => {
   Metadata.findAll({ where: { instanceId: req.params.instanceId, appName: req.params.name } })
@@ -36,7 +39,7 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
       }
       const newMetadata = {}
       let value
-      for (let property in req.body) { // TODO: validate the body structure
+      for (let property in req.body) {
         newMetadata['key'] = property
         value = req.body[property]
       }

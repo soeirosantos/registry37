@@ -2,10 +2,13 @@
 
 const _ = require('lodash')
 const express = require('express')
+const expressSanitized = require('express-sanitize-escape')
 const router = express.Router()
 const Instance = require('./instance.model')
 const Metadata = require('../metadata').model
 const App = require('../apps/app.model')
+
+expressSanitized.sanitizeParams(router, ['name', 'instanceId'])
 
 router.get('/apps/:name/instances/:instanceId', (req, res, next) => {
   Instance.findOne({ where: { appName: req.params.name, instanceId: req.params.instanceId } })
@@ -36,7 +39,7 @@ router.post('/apps/:name/instances/:instanceId', (req, res, next) => {
         return
       }
       Instance
-        .create({ instanceId: req.params.instanceId, appName: req.params.name }) // FIXME: security flaw
+        .create({ instanceId: req.params.instanceId, appName: req.params.name })
         .then(instance => res.status(201).json(instance))
         .catch(err => next(err))
     })

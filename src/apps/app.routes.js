@@ -1,9 +1,12 @@
 'use strict'
 
 const express = require('express')
+const expressSanitized = require('express-sanitize-escape')
 const router = express.Router()
 const App = require('./app.model')
 const Instance = require('../instances').model
+
+expressSanitized.sanitizeParams(router, ['name'])
 
 router.get('/apps', (req, res, next) => {
   App.findAll()
