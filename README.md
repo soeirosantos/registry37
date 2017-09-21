@@ -40,17 +40,19 @@ The [Pub/Sub Messaging Channel](https://redis.io/topics/pubsub) is a Redis-based
 The metadata is sent to an Instance channel in a `key/value` pair where a Metadata namespace is defined as `appName:instanceId:keyName` and used as a key.
 The Instance channel can be identified by its namespace defined as `appName:instanceId`
 
-Example:
+Example of Metadata:
 
 | key | value |
 | --- | ----- |
 | user-mngmt:i-0acb33e31d0c3d1ce:healthCheckUrl | http://someaddress.com/api/v3/health |
 
-When a client starts it should use `GET  /apps/:appName/instances/:instanceId/metadata/keys` to load all the metadata from redis. 
-The endpoint `GET  /apps/:appName/instances/:instanceId` can also be used to get all the metadata at once.
-After that, all updates and new properties will be notified to the instance channel.
+When a client starts it should use the endpoint `GET  /apps/:appName/instances/:instanceId/metadata/keys` to find the keys and load the metadata from Redis. 
 
-Sample of code to listen the Instance channel and retrieve updates in the Registry
+The endpoint `GET  /apps/:appName/instances/:instanceId` can also be used to get all the metadata at once.
+
+After that, all updates and new properties will be notified to the Instance channel.
+
+It's a sample code to listen to the Instance channel and retrieve updates in the Registry:
 
 ```JavaScript
 [...]
@@ -60,11 +62,12 @@ subscriber.on('message', (channel, metadataKey) => {
   console.log('Got update for ' + channel)
   redis.get(metadataKey, (err, result) => {
     if (err) throw err
-    console.log(result)
+    console.log(result) // update the client config
   })
 })
 [...]
 ```
+Check the [sample-subscriber.js](https://github.com/soeirosantos/registry37/blob/master/src/publisher/sample-subscriber.js) file to see the complete code.
 
 ## Production-ready applications for Externalized Configuration
 
