@@ -35,15 +35,36 @@ For this version, the following operations can be used to manage metadata:
 
 ## Pub/Sub Messaging Channel
 
-The Pub/Sub Messaging Channel is a Redis-based service where clients (subscribers) can listen to a channel and retrieve the metadata. It's the easiest way to keep up to date without the need of polling the API.
+The [Pub/Sub Messaging Channel](https://redis.io/topics/pubsub) is a Redis-based service where clients (subscribers) can listen to a channel and retrieve the metadata. It's the easiest way to keep up to date without the need of polling the API.
 
-The metadata is sent to the channel in a `key/value` pair where a namespace `app:instanceId:keyName` is used as a key.
+The metadata is sent to an Instance channel in a `key/value` pair where a Metadata namespace is defined as `appName:instanceId:keyName` and used as a key.
+The Instance channel can be identified by its namespace defined as `appName:instanceId`
 
 Example:
 
 | key | value |
 | --- | ----- |
 | user-mngmt:i-0acb33e31d0c3d1ce:healthCheckUrl | http://someaddress.com/api/v3/health |
+
+When a client starts it should use `GET  /apps/:appName/instances/:instanceId/metadata/keys` to load all the metadata from redis. 
+The endpoint `GET  /apps/:appName/instances/:instanceId` can also be used to get all the metadata at once.
+After that, all updates and new properties will be notified to the instance channel.
+
+Sample of code to listen the Instance channel and retrieve updates in the Registry
+
+```JavaScript
+[...]
+subscriber.subscribe('foo:instance1') // Instance namespace: appName:instanceId
+
+subscriber.on('message', (channel, metadataKey) => {
+  console.log('Got update for ' + channel)
+  redis.get(metadataKey, (err, result) => {
+    if (err) throw err
+    console.log(result)
+  })
+})
+[...]
+```
 
 ## Production-ready applications for Externalized Configuration
 

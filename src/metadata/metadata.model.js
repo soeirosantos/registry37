@@ -36,6 +36,10 @@ const Metadata = sequelize.define('metadata', {
     }]
 })
 
+Metadata.prototype.getNamespace = function () {
+  return `${this.appName}:${this.instanceId}:${this.key}`
+}
+
 if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0) {
   Metadata.sync({ force: true }).then(() => {
     return Metadata.bulkCreate([{

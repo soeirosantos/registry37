@@ -7,6 +7,7 @@ const router = express.Router()
 const Metadata = require('./metadata.model')
 const Instance = require('../instances/instance.model')
 const ApiError = require('../error').ApiError
+const publisher = require('../publisher')
 
 expressSanitized.sanitizeParams(router, ['name', 'instanceId', 'keyName'])
 
@@ -21,7 +22,7 @@ router.get('/apps/:name/instances/:instanceId/metadata/keys', (req, res, next) =
 
 router.get('/apps/:name/instances/:instanceId/metadata/:keyName', (req, res, next) => {
   Metadata.findOne({
-    where: {instanceId: req.params.instanceId, appName: req.params.name, key: req.params.keyName}
+    where: { instanceId: req.params.instanceId, appName: req.params.name, key: req.params.keyName }
   })
     .then(metadata => {
       const keyValuePair = {}
@@ -51,7 +52,7 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
       }
       newMetadata['appName'] = instance.appName
       newMetadata['instanceId'] = instance.instanceId
-      Metadata.findOrCreate({where: newMetadata, defaults: {value: value}})
+      Metadata.findOrCreate({ where: newMetadata, defaults: { value: value } })
         .spread((metadata, created) => {
           if (!created) {
             metadata.value = value
@@ -60,6 +61,11 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
           const keyValuePair = {}
           keyValuePair[metadata.key] = metadata.value
           res.status(200).json(keyValuePair)
+          return metadata
+        }).then((metadata) => {
+          publisher.publishMetadata(instance, metadata)
+            .then(() => console.log('Metadata successfully published: %s', metadata.getNamespace()))
+            .catch(err => next(err))
         })
         .catch(err => next(err))
     })

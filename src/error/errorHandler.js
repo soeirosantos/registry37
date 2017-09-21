@@ -15,6 +15,7 @@ ApiError.prototype.toString = function () {
 }
 
 const handler = (err, request, response, next) => {
+  console.log(err.stack)
   if (!(err instanceof ApiError)) {
     let status
     if (err instanceof sequelize.ValidationError) {

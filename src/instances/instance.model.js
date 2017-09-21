@@ -26,6 +26,10 @@ const Instance = sequelize.define('instance', {
     }]
 })
 
+Instance.prototype.getNamespace = function () {
+  return `${this.appName}:${this.instanceId}`
+}
+
 if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0) {
   Instance.sync({ force: true }).then(() => {
     return Instance.bulkCreate([{
