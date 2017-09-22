@@ -26,6 +26,8 @@ if ([ 'dev', 'test' ].indexOf(process.env.NODE_ENV) >= 0) {
       name: 'bar'
     }])
   })
+} else {
+  App.sync({ force: true })
 }
 
 module.exports = App

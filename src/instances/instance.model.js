@@ -43,6 +43,8 @@ if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0) {
       appName: 'bar'
     }])
   })
+} else {
+  Instance.sync({ force: true })
 }
 
 module.exports = Instance

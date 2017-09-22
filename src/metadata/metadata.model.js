@@ -59,6 +59,8 @@ if (['dev', 'test'].indexOf(process.env.NODE_ENV) >= 0) {
       appName: 'bar'
     }])
   })
+} else {
+  Metadata.sync({ force: true })
 }
 
 module.exports = Metadata

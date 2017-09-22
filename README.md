@@ -68,3 +68,26 @@ For now, this application is a Proof of Concept and an *in-progress* work. If yo
 * [Apache Zookeeper](http://zookeeper.apache.org/)
 * [Consul](https://www.consul.io/)
 * [Etcd](https://github.com/coreos/etcd)
+
+## Running the application
+
+### Development
+
+If you wanna try the notifications, make sure you have Redis instaled.
+
+```
+$ npm install
+$ npm test
+$ npm run dev
+```
+
+Try: http://localhost:3000/api/v1/health
+
+### Production
+
+Provide the following environment variables: `MYSQL_ROOT_PASSWORD`, `MYSQL_PASSWORD` and execute
+
+```
+$ docker-compose up -d
+```
+

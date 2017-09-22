@@ -7,11 +7,12 @@ module.exports = {
     'dialect': 'sqlite',
     'storage': ':memory:'
   },
-  'prod': {
-    'username': process.env.DB_USERNAME,
+  'production': {
+    'username': process.env.DB_USERNAME || 'registry37_user',
     'password': process.env.DB_PASSWORD,
-    'database': process.env.DB_NAME,
-    'host': process.env.DB_HOST,
+    'database': process.env.DB_NAME || 'registry37',
+    'host': process.env.DB_HOST || 'mysql-registry37',
+    'port': process.env.DB_PORT || '3306',
     'dialect': 'mysql',
     'pool': {
       'max': process.env.DB_POOL_MAX || 5,

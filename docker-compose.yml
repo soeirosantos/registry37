@@ -1,0 +1,21 @@
+version: '3'
+services:
+  registry37:
+    build: .
+    ports:
+     - "3000:3000"
+    environment:
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+  redis-registry37:
+    image: "redis:alpine"
+    ports:
+     - "6379:6379"
+  mysql-registry37:
+    image: mysql:latest
+    ports:
+     - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=registry37
+      - MYSQL_USER=registry37_user
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}

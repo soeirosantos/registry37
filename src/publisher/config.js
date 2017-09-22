@@ -5,7 +5,7 @@ module.exports = {
   'test': {
     'uri': 'redis://localhost:6379/4'
   },
-  'prod': {
-    'uri': process.env.REDIS_URI
+  'production': {
+    'uri': process.env.REDIS_URI || 'redis://redis-registry37:6379/4'
   }
 }

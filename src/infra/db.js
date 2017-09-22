@@ -6,7 +6,7 @@ const dbconfig = require('./dbconfig')[ENV]
 
 const sequelize = new Sequelize(
   dbconfig.database,
-  dbconfig.user,
+  dbconfig.username,
   dbconfig.password,
   dbconfig)
 
