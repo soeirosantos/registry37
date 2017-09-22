@@ -14,4 +14,4 @@
 6.5 - Cover error flow - OK
 7 - Redis setup and basic access infra OK
 9 - Metadata Publisher implementation OK
-10 - Dockerize
+10 - Dockerize OK

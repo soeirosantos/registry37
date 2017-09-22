@@ -73,7 +73,7 @@ For now, this application is a Proof of Concept and an *in-progress* work. If yo
 
 ### Development
 
-If you wanna try the notifications, make sure you have Redis instaled.
+If you wanna try the notifications, make sure you have Redis installed.
 
 ```
 $ npm install
