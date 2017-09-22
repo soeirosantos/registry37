@@ -35,35 +35,26 @@ For this version, the following operations can be used to manage metadata:
 
 ## Pub/Sub Messaging Channel
 
-The [Pub/Sub Messaging Channel](https://redis.io/topics/pubsub) is a Redis-based service where clients (subscribers) can listen to a channel and retrieve the metadata. It's the easiest way to keep up to date without the need of polling the API.
+The [Pub/Sub Messaging Channel](https://redis.io/topics/pubsub) is a Redis-based service where clients (subscribers) can listen to a channel and retrieve the updated metadata. It's the easiest way to keep up to date without the need of polling the API.
 
-The metadata is sent to an Instance channel in a `key/value` pair where a Metadata namespace is defined as `appName:instanceId:keyName` and used as a key.
+The metadata is sent to an Instance channel in a single `key/value` pair.
 The Instance channel can be identified by its namespace defined as `appName:instanceId`
 
-Example of Metadata:
+When a client starts it should use the endpoint `GET  /apps/:appName/instances/:instanceId` to get all the metadata at once.
 
-| key | value |
-| --- | ----- |
-| user-mngmt:i-0acb33e31d0c3d1ce:healthCheckUrl | http://someaddress.com/api/v3/health |
-
-When a client starts it should use the endpoint `GET  /apps/:appName/instances/:instanceId/metadata/keys` to find the keys and load the metadata from Redis. 
-
-The endpoint `GET  /apps/:appName/instances/:instanceId` can also be used to get all the metadata at once.
-
-After that, all updates and new properties will be notified to the Instance channel.
+After that, the updates and new properties will be notified to the Instance channel.
 
 It's a sample code to listen to the Instance channel and retrieve updates in the Registry:
 
 ```JavaScript
 [...]
-subscriber.subscribe('foo:instance1') // Instance namespace: appName:instanceId
+const appName = 'foo'
+const instanceId = 'instance1'
 
-subscriber.on('message', (channel, metadataKey) => {
-  console.log('Got update for ' + channel)
-  redis.get(metadataKey, (err, result) => {
-    if (err) throw err
-    console.log(result) // update the client config
-  })
+subscriber.subscribe(`${appName}:${instanceId}`)
+
+subscriber.on('message', (channel, metadata) => {
+  console.log('Got update for %s - %s', channel, metadata)
 })
 [...]
 ```

@@ -48,17 +48,15 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
         next(new ApiError(404, 'Application Instance not found.'))
         return
       }
-      let key
-      let value
-      for (let property in req.body) {
-        key = property
-        value = req.body[property]
-      }
 
-      const newMetadata =
-        Object.assign({}, { key: key }, { appName: instance.appName }, { instanceId: instance.instanceId })
+      const key = Object.keys(req.body)[0]
+      const value = req.body[key]
+      const requestedMetadata =
+        Object.assign({}, { key: key },
+          { appName: instance.appName },
+          { instanceId: instance.instanceId })
 
-      Metadata.findOrCreate({ where: newMetadata, defaults: { value: value } })
+      Metadata.findOrCreate({ where: requestedMetadata, defaults: { value: value } })
         .spread((metadata, created) => {
           if (!created) {
             metadata.value = value
@@ -67,10 +65,10 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
           const keyValuePair = {}
           keyValuePair[metadata.key] = metadata.value
           res.status(200).json(keyValuePair)
-          return metadata
-        }).then((metadata) => {
-          publisher.publishMetadata(instance, metadata)
-            .then(() => console.log('Metadata successfully published: %s', metadata.getNamespace()))
+          return keyValuePair
+        }).then(keyValuePair => {
+          publisher.publishMetadata(instance, keyValuePair)
+            .then(() => console.log('Metadata successfully published: %s', JSON.stringify(keyValuePair)))
             .catch(err => next(err))
         })
         .catch(err => next(err))

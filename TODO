@@ -13,7 +13,5 @@
 6.4 - Secure the API - OK
 6.5 - Cover error flow - OK
 7 - Redis setup and basic access infra OK
-8 - Metadata Publisher specification
 9 - Metadata Publisher implementation OK
-9.1 - Create a service for loading all metadata to the Redis
 10 - Dockerize
