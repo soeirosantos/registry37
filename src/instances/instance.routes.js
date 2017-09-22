@@ -20,11 +20,10 @@ router.get('/apps/:name/instances/:instanceId', (req, res, next) => {
       Metadata.findAll({ where: { instanceId: instance.instanceId, appName: instance.appName } })
         .then(metadata => {
           instance = instance.get()
-          const metadataAsSingleObject = {}
-          metadata.forEach((m) => {
-            metadataAsSingleObject[m.key] = m.value
-          })
-          instance.metadata = metadataAsSingleObject
+          instance.metadata = metadata.reduce((result, {key, value}) => {
+            result[key] = value
+            return result
+          }, {})
           res.status(200).json(instance)
         })
         .catch(err => next(err))

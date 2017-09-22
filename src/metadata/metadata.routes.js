@@ -25,6 +25,10 @@ router.get('/apps/:name/instances/:instanceId/metadata/:keyName', (req, res, nex
     where: { instanceId: req.params.instanceId, appName: req.params.name, key: req.params.keyName }
   })
     .then(metadata => {
+      if (!metadata) {
+        next(new ApiError(404, 'Metadata not found.'))
+        return
+      }
       const keyValuePair = {}
       keyValuePair[metadata.key] = metadata.value
       res.status(200).json(keyValuePair)
@@ -44,14 +48,16 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
         next(new ApiError(404, 'Application Instance not found.'))
         return
       }
-      const newMetadata = {}
+      let key
       let value
       for (let property in req.body) {
-        newMetadata['key'] = property
+        key = property
         value = req.body[property]
       }
-      newMetadata['appName'] = instance.appName
-      newMetadata['instanceId'] = instance.instanceId
+
+      const newMetadata =
+        Object.assign({}, { key: key }, { appName: instance.appName }, { instanceId: instance.instanceId })
+
       Metadata.findOrCreate({ where: newMetadata, defaults: { value: value } })
         .spread((metadata, created) => {
           if (!created) {
