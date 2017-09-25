@@ -1,10 +1,11 @@
 [![Build Status](https://travis-ci.org/soeirosantos/registry37.svg?branch=master)](https://travis-ci.org/soeirosantos/registry37)
+[![Coverage Status](https://coveralls.io/repos/github/soeirosantos/registry37/badge.svg?branch=master)](https://coveralls.io/github/soeirosantos/registry37?branch=master)
 
 # Registry37 - A Simple Metadata Registry application
 
-The Registry37 is a *lightweight* application for storing and managing application service metadata. 
+The Registry37 is a *lightweight* application for storing and managing application metadata.
 
-While working with distributed services, it's useful to keep the configuration externalized and remotely discoverable. It could bring some benefits like: (re-)configure the application in runtime; run the application in multiple environments with minimum effort; change the routing to backend services and so on - without any code changes or artifacts distribution.
+While working with distributed services, it's useful to keep the configuration externalized and remotely discoverable. It could bring some benefits like: (re-)configure the application in runtime; run the application in multiple environments with minimal effort; change the routing to backend services and so on - without any code changes or artifacts distribution.
 
 Some example of metadata that can be kept are: `nonSecurePort`, `securePort`, `virtualHostname`, `secureVirtualHostname`, `hostName`, `ipAddress`, `statusPageUrlPath`, `statusPageUrl`, `homePageUrl`
 `healthCheckUrl`, `secureHealthCheckUrl`, etc
@@ -71,7 +72,7 @@ For now, this application is a Proof of Concept and an *in-progress* work. If yo
 
 ## Running the application
 
-### Development
+### Development environment
 
 If you wanna try the notifications, make sure you have Redis installed.
 
@@ -83,7 +84,7 @@ $ npm run dev
 
 Try: http://localhost:3000/api/v1/health
 
-### Production
+### Docker
 
 Provide the following environment variables: `MYSQL_ROOT_PASSWORD`, `MYSQL_PASSWORD` and execute
 

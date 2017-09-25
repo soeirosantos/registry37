@@ -7,7 +7,8 @@
     "dev": "NODE_ENV=dev nodemon ./src/index.js",
     "start": "NODE_ENV=production node ./src/index.js",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./src/**/*.spec.js",
-    "lint": "eslint ./src/"
+    "lint": "eslint ./src/",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.18.1",
     "cors": "^2.8.4",
+    "coveralls": "^2.13.1",
     "express": "^4.15.4",
     "express-sanitize-escape": "^1.1.0",
     "helmet": "^3.8.1",
