@@ -7,7 +7,7 @@ const App = sequelize.define('app', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: { min: 3, max: 255, notEmpty: true }
+    validate: { len: [3, 255], notEmpty: true }
   }
 },
 {

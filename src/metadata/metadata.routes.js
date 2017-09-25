@@ -14,6 +14,10 @@ expressSanitized.sanitizeParams(router, ['name', 'instanceId', 'keyName'])
 router.get('/apps/:name/instances/:instanceId/metadata/keys', (req, res, next) => {
   Metadata.findAll({ where: { instanceId: req.params.instanceId, appName: req.params.name } })
     .then(metadata => {
+      if (!metadata) {
+        next(new ApiError(404, 'Metadata not found.'))
+        return
+      }
       metadata = _.map(metadata, (m) => m.key)
       res.status(200).json(metadata)
     })

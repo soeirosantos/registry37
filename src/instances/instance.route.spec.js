@@ -22,6 +22,14 @@ describe('Instances API', () => {
           done()
         })
     })
+    it('should response HTTP status 404 retrieving metadata for a non-existing instance', (done) => {
+      chai.request(server)
+        .get('/api/v1/apps/foo/instances/test')
+        .end((err, res) => {
+          res.should.have.status(404)
+          done()
+        })
+    })
   })
 
   describe('POST /api/v1/apps/:name/intances/:instanceId', () => {
@@ -41,6 +49,14 @@ describe('Instances API', () => {
         .end((err, res) => {
           res.should.have.status(400)
           res.body.should.be.a('object')
+          done()
+        })
+    })
+    it('should response HTTP status 404 creating an instance for a non-existing app', (done) => {
+      chai.request(server)
+        .post('/api/v1/apps/test/instances/instance1')
+        .end((err, res) => {
+          res.should.have.status(404)
           done()
         })
     })

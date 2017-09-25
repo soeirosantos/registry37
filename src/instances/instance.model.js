@@ -7,7 +7,7 @@ const Instance = sequelize.define('instance', {
   instanceId: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: { min: 3, max: 255, notEmpty: true }
+    validate: { len: [3, 255], notEmpty: true }
   },
   // It's a decision to let the model
   // flat and don't rely on details
@@ -15,7 +15,7 @@ const Instance = sequelize.define('instance', {
   appName: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: { min: 3, max: 255, notEmpty: true }
+    validate: { len: [3, 255], notEmpty: true }
   }
 },
 {

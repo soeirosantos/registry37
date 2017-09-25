@@ -33,6 +33,14 @@ describe('Apps API', () => {
           done()
         })
     })
+    it('should response HTTP status 404 retrieving a non-existing app', (done) => {
+      chai.request(server)
+        .get('/api/v1/apps/test')
+        .end((err, res) => {
+          res.should.have.status(404)
+          done()
+        })
+    })
   })
 
   describe('POST /api/v1/apps/:name', () => {
