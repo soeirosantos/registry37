@@ -59,7 +59,7 @@ describe('Metadata API', () => {
     sinon.stub(publisher, 'publishMetadata').resolves()
     it('should response HTTP status 200 updating a metadata', (done) => {
       chai.request(server)
-        .post('/api/v1/apps/foo/instances/theInstanceId/metadata')
+        .post('/api/v1/apps/foo/instances/instance1/metadata')
         .send({ healthCheckUrl: 'http://the-url' })
         .end((err, res) => {
           res.should.have.status(200)
@@ -70,18 +70,18 @@ describe('Metadata API', () => {
     })
     it('should response HTTP status 200 creating a metadata', (done) => {
       chai.request(server)
-        .post('/api/v1/apps/foo/instances/theInstanceId/metadata')
-        .send({ s3ApiKey: '128381' })
+        .post('/api/v1/apps/foo/instances/instance1/metadata')
+        .send({ anotherKey: '128381' })
         .end((err, res) => {
           res.should.have.status(200)
           res.body.should.be.a('object')
-          res.body.should.have.property('s3ApiKey')
+          res.body.should.have.property('anotherKey')
           done()
         })
     })
     it('should response HTTP status 400 storing a metadata with wrong content', (done) => {
       chai.request(server)
-        .post('/api/v1/apps/foo/instances/theInstanceId/metadata')
+        .post('/api/v1/apps/foo/instances/instance1/metadata')
         .send({})
         .end((err, res) => {
           res.should.have.status(400)
