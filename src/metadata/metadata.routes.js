@@ -71,9 +71,11 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
           res.status(200).json(keyValuePair)
           return keyValuePair
         }).then(keyValuePair => {
-          publisher.publishMetadata(instance, keyValuePair)
-            .then(() => console.log('Metadata successfully published: %s', JSON.stringify(keyValuePair)))
-            .catch(err => next(err))
+          if (keyValuePair) {
+            publisher.publishMetadata(instance, keyValuePair)
+              .then(() => console.log('Metadata successfully published: %s', JSON.stringify(keyValuePair)))
+              .catch(err => next(err))
+          }
         })
         .catch(err => next(err))
     })

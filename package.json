@@ -8,7 +8,8 @@
     "start": "NODE_ENV=production node ./src/index.js",
     "test": "NODE_ENV=test mocha ./src/**/*.spec.js",
     "lint": "eslint ./src/",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "complexity-report": "cr ./src"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.1",
+    "complexity-report": "^2.0.0-alpha",
     "cors": "^2.8.4",
     "express": "^4.15.4",
     "express-sanitize-escape": "^1.1.0",
