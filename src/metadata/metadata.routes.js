@@ -1,5 +1,6 @@
 'use strict'
 
+const logger = require('winston')
 const _ = require('lodash')
 const express = require('express')
 const expressSanitized = require('express-sanitize-escape')
@@ -73,7 +74,7 @@ router.post('/apps/:name/instances/:instanceId/metadata', (req, res, next) => {
         }).then(keyValuePair => {
           if (keyValuePair) {
             publisher.publishMetadata(instance, keyValuePair)
-              .then(() => console.log('Metadata successfully published: %s', JSON.stringify(keyValuePair)))
+              .then(() => logger.info('Metadata successfully published: %s', JSON.stringify(keyValuePair)))
               .catch(err => next(err))
           }
         })

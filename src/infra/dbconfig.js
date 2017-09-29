@@ -5,7 +5,8 @@ module.exports = {
   },
   'test': {
     'dialect': 'sqlite',
-    'storage': ':memory:'
+    'storage': ':memory:',
+    'logging': false
   },
   'production': {
     'username': process.env.DB_USERNAME || 'registry37_user',
@@ -18,6 +19,7 @@ module.exports = {
       'max': process.env.DB_POOL_MAX || 5,
       'min': process.env.DB_POOL_MIN || 0,
       'idle': process.env.DB_POOL_IDLE || 10000
-    }
+    },
+    'logging': false
   }
 }
