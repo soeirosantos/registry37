@@ -1,11 +1,18 @@
 'use strict'
 
+const logger = require('winston')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const expressSanitized = require('express-sanitize-escape')
 const error = require('./error')
+
+logger.default.transports.console.colorize = true
+logger.default.transports.console.timestamp = true
+logger.default.transports.console.prettyPrint = process.env.ENV === 'dev'
+logger.level = process.env.LOGGER_LEVEL || 'info'
+// level allowed: ['test', 'error', 'warn', 'info', 'verbose', 'debug', 'silly']
 
 const app = express()
 app.use(helmet())
@@ -28,19 +35,19 @@ const sequelize = require('./infra/db')
 sequelize
   .authenticate()
   .then(() => {
-    console.log('Connection has been established successfully.')
+    logger.info('Connection has been established successfully.')
   })
   .catch(err => {
-    console.error('Unable to connect to the database:', err)
+    logger.error('Unable to connect to the database:', err)
   })
 
 const port = process.env.PORT || 3000
 
 app.listen(port, (err) => {
   if (err) {
-    console.log('something bad happened', err)
+    logger.error('Something went wrong starting the server', err)
   }
-  console.log(`server is listening on ${port}`)
+  logger.info(`Server is listening on ${port}`)
 })
 
 module.exports = app
